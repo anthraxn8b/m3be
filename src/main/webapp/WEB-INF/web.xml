@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+
+  <display-name>M3-System</display-name>
+  <description>Mass Match Making System</description>
+  <servlet>
+    <description>AtmosphereServlet used as the main servlet</description>
+    <servlet-name>MainServlet</servlet-name>
+    <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>eu.kairat.apps.m3.service.rest,
+        eu.kairat.apps.m3.exception</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.websocket.messageContentType</param-name>
+      <param-value>application/json</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MainServlet</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+  </login-config>
+  
+  <servlet>
+    <servlet-name>InitServlet</servlet-name>
+    <servlet-class>eu.kairat.apps.m3.database.InitServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+</web-app>
